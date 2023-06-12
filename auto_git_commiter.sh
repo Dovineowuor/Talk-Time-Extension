@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Change to your project directory
-cd /path/to/your/project
+# cd /path/to/your/project
 
 # Get the list of uncommitted files
 files=$(git status --porcelain | awk '{print $2}')
