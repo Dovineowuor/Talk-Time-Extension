@@ -1,0 +1,40 @@
+:root {
+  --ext-sidebar-width: 300px;
+
+  --ext-color-bg-light: #425563;
+  --ext-color-bg: #132A3C;
+  --ext-color-bg-dark: #0F2230;
+  --ext-color-bg-darken: #091C2A;
+
+  --ext-color-primary: #5D53C6;
+  --ext-color-primary-dark: #4A429E;
+}
+
+body > .main-app-content {
+  width: calc(100% - var(--ext-sidebar-width));
+  margin-left: auto;
+}
+
+.main.talkytimes > .container > .row,
+.main.talkytimes > .container > .row > .col-9 {
+  width: 100%;
+  max-width: 100%;
+  flex: none;
+}
+
+[data-target="main-sidebar"] {
+  display: none;
+}
+
+.container {
+  min-width: unset !important;
+  width: calc(100vw - 300px) !important;
+}
+
+.main-app-content > .contact-us,
+.main-app-content > .page > footer,
+.main-app-content .profile-photo-input,
+.main-app-content [data-test-id="cmp:ui-button click:edit edit-profile"],
+.main-app-content [data-test-id="cmp:ui-button click:trigger-click-input"] {
+  display: none !important;
+}
