@@ -1,6 +1,6 @@
 📦 GitHub Repository Description:
 
-Talk Time Extension
+# Talk Time Extension
 
 The Talk Time Extension is a powerful tool designed to enhance messaging and customer interaction on the TalkyTimes platform. It provides a range of features and functionalities that streamline the process of managing profiles, sending messages, monitoring active users, and more.
 
