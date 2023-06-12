@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="TalkyTimesSoftware/content-scripts/main.css">
+  <link rel="shortcut icon" href="TalkyTimesSoftware/assets/icons/talkytimes.svg" type="image/x-icon">
+  <style>
+    /* Add your custom CSS styles for the active header here */
+    .sidebar {
+      background-color: #333;
+      color: #FFF;
+      width: 200px;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding: 20px;
+      transition: transform 0.3s;
+    }
+
+    .sidebar.hidden {
+      transform: translateX(-200px);
+    }
+
+    .sidebar h2 {
+      margin-top: 0;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #FFF;
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 20px 0;
+    }
+
+    .sidebar ul li {
+      margin-bottom: 10px;
+    }
+
+    .sidebar ul li a {
+      color: #FFF;
+      text-decoration: none;
+    }
+
+    .sidebar ul li a:hover {
+      text-decoration: underline;
+    }
+
+    .back-button {
+      position: fixed;
+      top: 20px;
+      left: 240px;
+      padding: 10px;
+      background-color: rgb(66, 35, 168);
+      border-radius: 15px;
+    }
+
+    /* Custom styles for workspace panel */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+
+    .workspace-panel {
+      display: flex;
+      height: 100vh;
+    }
+
+    .sidebar {
+      flex: 1;
+    }
+
+    .online-users {
+      margin-bottom: 20px;
+    }
+
+    .online-users h2 {
+      margin-top: 0;
+      font-size: 18px;
+    }
+
+    .user-list {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .user-list li {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .user-list li .icon {
+      margin-right: 10px;
+    }
+
+    .offline {
+      color: #777;
+    }
+
+    .chat-area {
+      flex: 2;
+      padding: 20px;
+    }
+
+    .messages {
+      height: 300px;
+      overflow-y: scroll;
+      background-color: #fff;
+      padding: 10px;
+    }
+
+    .message {
+      margin-bottom: 10px;
+      padding: 5px;
+      background-color: #eee;
+    }
+
+    .message p {
+      margin: 0;
+    }
+
+    .message.sent {
+      background-color: #c1e2b3;
+    }
+
+    .message.received {
+      background-color: #c1d4e2;
+    }
+
+    .compose-area {
+      margin-top: 20px;
+    }
+
+    .compose-area textarea {
+      width: 100%;
+      height: 100px;
+      resize: vertical;
+    }
+
+    /* Hide/Show button styles */
+    .hide-button {
+      position: fixed;
+      top: 20px;
+      left: 240px;
+      padding: 10px;
+      background-color: rgb(66, 35, 168);
+      border-radius: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="workspace-panel">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="online-users">
+        <h2>Users</h2>
+        <ul class="user-list">
+          <li><span class="icon online"></span>John Doe</li>
+          <li><span class="icon online"></span>Jane Smith</li>
+          <li><span class="icon offline"></span>Mark Johnson</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Chat Area -->
+    <div class="chat-area">
+      <div class="messages">
+        <div class="message sent">
+          <p>Hey, how are you doing?</p>
+        </div>
+        <div class="message received">
+          <p>I'm good, thanks!</p>
+        </div>
+        <div class="message received">
+          <p>How about you?</p>
+        </div>
+        <div class="message sent">
+          <p>I'm great, thanks for asking!</p>
+        </div>
+      </div>
+      <div class="compose-area">
+        <textarea placeholder="Type your message here..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back Button -->
+  <button class="back-button">Back</button>
+
+  <!-- Hide/Show Button -->
+  <button class="hide-button" id="hideButton">Hide</button>
+
+  <script>
+    const sidebar = document.querySelector('.sidebar');
+    const backButton = document.querySelector('.back-button');
+    const hideButton = document.getElementById('hideButton');
+
+    // Function to toggle the sidebar
+    function toggleSidebar() {
+      sidebar.classList.toggle('hidden');
+      backButton.classList.toggle('show');
+
+      // Update the button text based on the sidebar visibility
+      if (sidebar.classList.contains('hidden')) {
+        hideButton.textContent = 'Show';
+      } else {
+        hideButton.textContent = 'Hide';
+      }
+    }
+
+    // Event listener for the hide/show button
+    hideButton.addEventListener('click', toggleSidebar);
+  </script>
+</body>
+</html>

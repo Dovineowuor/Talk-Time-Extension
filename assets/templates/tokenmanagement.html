@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dark Mode Token Management</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #221c52; /* Dark background color */
+      color: #fff; /* Light text color */
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #453d83; /* Dark container background color */
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 18px;
+    }
+
+    form {
+      display: flex;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #777; /* Dark border color */
+      border-radius: 4px;
+      background-color: #1d1d1d; /* Dark input background color */
+      color: #fff; /* Light text color */
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #5e5e5e; /* Dark button background color */
+      color: #fff; /* Light text color */
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .token-list {
+      margin-top: 20px;
+      padding: 0;
+      list-style-type: none;
+    }
+
+    .token-list li {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .token-list li .token {
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Token Management</h2>
+    <form id="tokenForm">
+      <input type="text" id="tokenInput" placeholder="Enter token">
+      <button type="submit">Add Token</button>
+    </form>
+    <ul id="tokenList"></ul>
+  </div>
+
+  <script>
+    // Retrieve saved tokens from local storage
+    const savedTokens = JSON.parse(localStorage.getItem('tokens')) || [];
+
+    // Display saved tokens in the list
+    const tokenList = document.getElementById('tokenList');
+    savedTokens.forEach(token => {
+      const listItem = document.createElement('li');
+      const tokenElement = document.createElement('span');
+      tokenElement.classList.add('token');
+      tokenElement.textContent = token;
+      listItem.appendChild(tokenElement);
+      tokenList.appendChild(listItem);
+    });
+
+    // Add event listener to the token form
+    const tokenForm = document.getElementById('tokenForm');
+    tokenForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      // Get the token input value
+      const tokenInput = document.getElementById('tokenInput');
+      const newToken = tokenInput.value.trim();
+      
+      // Check if the token is empty
+      if (newToken === '') {
+        return;
+      }
+      
+      // Save the new token to local storage
+      savedTokens.push(newToken);
+      localStorage.setItem('tokens', JSON.stringify(savedTokens));
+      
+      // Create a new list item for the token
+      const listItem = document.createElement('li');
+      const tokenElement = document.createElement('span');
+      tokenElement.classList.add('token');
+      tokenElement.textContent = newToken;
+      listItem.appendChild(tokenElement);
+      tokenList.appendChild(listItem);
+      
+      // Reset the token input value
+      tokenInput.value = '';
+    });
+  </script>
+</body>
+</html>

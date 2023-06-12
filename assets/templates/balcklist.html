@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="TalkyTimesSoftware/content-scripts/main.css">
+  <link rel="shortcut icon" href="TalkyTimesSoftware/assets/icons/talkytimes.svg" type="image/x-icon">
+  <style>
+    /* Add your custom CSS styles here */
+
+    /* Custom styles for blacklist */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #171717; /* Dark background color */
+      color: #fff; /* Light text color */
+      margin: 0;
+      padding: 0;
+    }
+
+    .blacklist-container {
+      max-width: 400px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #363636; /* Dark container background color */
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .blacklist-container h2 {
+      margin-top: 0;
+      font-size: 18px;
+    }
+
+    .blacklist-container form {
+      display: flex;
+    }
+
+    .blacklist-container input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #777; /* Dark border color */
+      border-radius: 4px;
+      background-color: #1d1d1d; /* Dark input background color */
+      color: #fff; /* Light text color */
+    }
+
+    .blacklist-container button {
+      padding: 10px 20px;
+      background-color: #5e5e5e; /* Dark button background color */
+      color: #fff; /* Light text color */
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .blacklisted-customers {
+      margin-top: 20px;
+      padding: 0;
+      list-style-type: none;
+    }
+
+    .blacklisted-customers li {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .blacklisted-customers li .icon {
+      margin-right: 10px;
+    }
+
+    .offline {
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <div class="blacklist-container">
+    <h2>Blacklist</h2>
+    <form id="blockForm">
+      <input type="text" id="customerInput" placeholder="Enter username, name, or user ID">
+      <button type="submit">Block</button>
+    </form>
+    <ul id="blacklistedCustomers"></ul>
+  </div>
+
+  <script src="TalkyTimesSoftware/contents.js"></script>
+</body>
+</html>

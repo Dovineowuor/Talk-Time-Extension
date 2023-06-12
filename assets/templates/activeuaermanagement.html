@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Message Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #171717; /* Dark background color */
+      color: #fff; /* Light text color */
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #363636; /* Dark container background color */
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 18px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+    }
+
+    label {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    select {
+      padding: 10px;
+      border: 1px solid #777; /* Dark border color */
+      border-radius: 4px;
+      background-color: #1d1d1d; /* Dark input background color */
+      color: #fff; /* Light text color */
+      margin-bottom: 10px;
+    }
+
+    textarea {
+      padding: 10px;
+      border: 1px solid #777; /* Dark border color */
+      border-radius: 4px;
+      background-color: #1d1d1d; /* Dark input background color */
+      color: #fff; /* Light text color */
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #5e5e5e; /* Dark button background color */
+      color: #fff; /* Light text color */
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    #sentMessages {
+      background-color: #363636; /* Dark container background color */
+      padding: 10px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+
+    .message {
+      margin-bottom: 10px;
+    }
+
+    .message p {
+      margin: 0;
+      color: #fff; /* Light text color */
+    }
+
+    .message .attachment {
+      margin-top: 5px;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Message Form</h2>
+    <form id="messageForm">
+      <label for="recipient">Recipient:</label>
+      <select id="recipient">
+        <!-- Options dynamically added from DOM and database -->
+      </select>
+
+      <label for="message">Message:</label>
+      <textarea id="message" rows="4" placeholder="Enter your message"></textarea>
+
+      <label for="attachments">Attachments:</label>
+      <input type="file" id="attachments" multiple>
+
+      <button type="submit">Send Message</button>
+    </form>
+
+    <div id="sentMessages">
+      <!-- Display area for sent messages -->
+      <!-- Sent messages dynamically added here -->
+    </div>
+
+    <!-- Other feature sections -->
+  </div>
+
+  <script>
+    // Dark mode toggle
+    const darkModeToggle = document.querySelector('#darkModeToggle');
+    const container = document.querySelector('.container');
+
+    darkModeToggle.addEventListener('change', () => {
+      container.classList.toggle('dark-mode');
+    });
+
+    // Function to update recipient options from DOM and database
+    function updateRecipientOptions() {
+      const recipientSelect = document.querySelector('#recipient');
+
+      // Remove existing options
+      recipientSelect.innerHTML = '';
+
+      // Fetch recipient options from the database or use existing DOM elements
+
+      // Example: Using existing DOM elements
+      const recipientOptions = document.querySelectorAll('.recipient-option');
+      recipientOptions.forEach((option) => {
+        recipientSelect.appendChild(option.cloneNode(true));
+      });
+    }
+
+    // Event listener for form submission
+    const messageForm = document.querySelector('#messageForm');
+    const sentMessages = document.querySelector('#sentMessages');
+
+    messageForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Retrieve form values
+      const recipient = document.querySelector('#recipient').value;
+      const message = document.querySelector('#message').value;
+      const attachments = document.querySelector('#attachments').files;
+
+      // Perform necessary actions with the form data
+      // (e.g., send message, save to database, etc.)
+
+      // Example: Display the sent message
+      const messageContainer = document.createElement('div');
+      messageContainer.classList.add('message');
+
+      const messageContent = document.createElement('p');
+      messageContent.textContent = message;
+
+      messageContainer.appendChild(messageContent);
+
+      if (attachments.length > 0) {
+        const attachmentInfo = document.createElement('p');
+        attachmentInfo.classList.add('attachment');
+        attachmentInfo.textContent = `${attachments.length} attachment(s) added`;
+
+        messageContainer.appendChild(attachmentInfo);
+      }
+
+      sentMessages.appendChild(messageContainer);
+
+      // Reset the form fields
+      messageForm.reset();
+    });
+  </script>
+</body>
+</html>

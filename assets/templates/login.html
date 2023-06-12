@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Form</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <script src="TalkyTimesSoftware/content-scripts/login.js"></script>
+  <style>
+    body {
+      background-color: #202235;
+      color: #f5f5f7;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #777;
+      border-radius: 5px;
+    }
+
+    .container h2 {
+      text-align: center;
+    }
+
+    .container form div {
+      margin-bottom: 10px;
+      position: relative; /* Added */
+    }
+
+    .container label {
+      display: block;
+    }
+
+    .container input[type="text"],
+    .container input[type="password"] {
+      width: 100%;
+      padding: 5px;
+      font-size: 16px;
+      background-color: #b4c6c6;
+      color: #fff;
+      border: none;
+    }
+
+    .container button[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      background-color: #0e133e;
+      color: #ffffff;
+      border: none;
+      cursor: pointer;
+      border-radius: 15px;
+    }
+
+    .container button[type="submit"]:hover {
+      background-color: #888;
+    }
+
+    #loginStatus {
+      text-align: center;
+      font-weight: bold;
+      color: #fff;
+      position: absolute; /* Added */
+      top: 0; /* Added */
+      left: 0; /* Added */
+      width: 100%; /* Added */
+      padding: 5px 0; /* Added */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Login Form</h2>
+    <form id="loginForm">
+      <div>
+        <label for="username">Username</label>
+        <input type="text" id="username" required>
+        <p id="loginStatus"></p> <!-- Moved inside the div -->
+      </div>
+      <div>
+        <label for="password">Password</label>
+        <input type="password" id="password" required>
+      </div>
+      <div>
+        <button type="submit">Login</button>
+      </div>
+    </form>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const loginForm = document.getElementById('loginForm');
+      const loginStatus = document.getElementById('loginStatus');
+
+      loginForm.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form submission
+
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+
+        const username = usernameInput.value;
+        const password = passwordInput.value;
+
+        // Perform login authentication (replace with your own logic)
+        if (username === 'admin' && password === 'password') {
+          // Successful login
+          loginStatus.textContent = 'Login successful!';
+          loginStatus.style.color = 'green';
+          // You can redirect the user to another page or perform other actions here
+        } else {
+          // Failed login
+          loginStatus.textContent = 'Invalid username or password';
+          loginStatus.style.color = 'red';
+        }
+
+        // Clear input fields
+        usernameInput.value = '';
+        passwordInput.value = '';
+      });
+    });
+  </script>
+</body>
+</html>

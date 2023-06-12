@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="TalkyTimesSoftware/content-scripts/main.css">
+  <link rel="shortcut icon" href="TalkyTimesSoftware/assets/icons/talkytimes.svg" type="image/x-icon">
+  <script src="content-scripts/main.js"></script>
+  <script>
+    chrome.runtime.onInstalled.addListener(function() {
+  // Open options.html when the extension is opened
+  chrome.runtime.openOptionsPage();
+});
+
+chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+  if (message.action === "saveOptions") {
+    // Retrieve saved options from localStorage
+    var savedOptions = JSON.parse(localStorage.getItem("talkytimesOptions"));
+
+    // Pass the saved options to popup.html
+    chrome.tabs.create({ url: "popup.html" }, function(tab) {
+      chrome.tabs.sendMessage(tab.id, { action: "useOptions", options: savedOptions });
+    });
+  }
+});
+
+  </script>
+  <style>
+    /* Add your custom CSS styles for the active header here */
+    .sidebar {
+      background-color: #221b3a;
+      color: #FFF;
+      width: 200px;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding: 20px;
+    }
+
+    .sidebar h2 {
+      margin-top: 0;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #FFF;
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 20px 0;
+    }
+
+    .sidebar ul li {
+      margin-bottom: 10px;
+    }
+
+    .sidebar ul li a {
+      color: #FFF;
+      text-decoration: none;
+    }
+
+    .sidebar ul li a:hover {
+      text-decoration: underline;
+    }
+  </style>
+  <script>
+    
+    // Add an event listener to the messageForm submit event
+    document.addEventListener('DOMContentLoaded', function () {
+      const messageForm = document.getElementById('messageForm');
+      messageForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        sendMessage();
+      });
+    });
+
+    // use case function to handle message sending
+    function sendMessage() {
+      const recipientSelect = document.getElementById('recipient');
+      const messageTextarea = document.getElementById('message');
+      const attachmentInput = document.getElementById('attachment');
+
+      // Retrieve the selected recipient, message, and attachment values
+      const recipient = recipientSelect.value;
+      const message = messageTextarea.value;
+      const attachment = attachmentInput.files[0];
+
+      // Implement logic to send the message and handle attachments
+      // You can use the functions mentioned earlier in this file
+
+      // Clear the input fields after sending the message
+      messageTextarea.value = '';
+      attachmentInput.value = '';
+    }
+  </script>
+</head>
+<body>
+  <!-- Active Header - Left-hand sidebar -->
+  <div class="sidebar">
+    <h2>TalkyTimes Extension</h2>
+    <ul>
+      <li><a href="TalkyTimesSoftware/assets/templates/workspace.html">Workspace Panel</a></li>
+      <li><a href="#activeUsers">Active User Monitoring</a></li>
+      <li><a href="TalkyTimesSoftware/assets/templates/rooms.html"> Room Management</a></li>
+      <li><a href="TalkyTimesSoftware/assets/templates/balcklist.html">Customer Blacklist</a></li>
+      <li><a href="TalkyTimesSoftware/assets/templates/tokenmanagement.html">Token Management</a></li>
+      <li><a href="TalkyTimesSoftware/assets/templates/balcklist.html">Error Handling</a></li>
+      <li><a href="TalkyTimesSoftware/assets/templates/popup.html">Settings</a></li>
+
+    </ul>
+  </div>
+
+  <!-- Message input form -->
+  <form id="messageForm">
+    <!-- Your existing message form content goes here -->
+  </form>
+
+  <!-- ... -->
+
+</body>
+</html>
